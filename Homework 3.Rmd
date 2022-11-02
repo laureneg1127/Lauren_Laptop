@@ -1,0 +1,55 @@
+---
+title: "Homework_3"
+author: "Lauren Garlow"
+date: '2022-11-01'
+output: html_document
+---
+#I needed to run these a million times so they are here
+```{r}
+help(readline)
+```
+
+#Creating GuessTheNumber functoin
+```{r, warning=FALSE}
+set.seed(42)
+
+GuessTheNumber <- function(lower,upper,seed=42) {
+  Guesses <- c()
+  Number <- readline(prompt = "Enter a Number: ")
+  RandomNumber <- sample(lower:upper, size = 1)
+  NumGuesses <- 1
+  if(!is.numeric(lower) || (!is.numeric(upper))) {
+    stop("Lower and Upper have to be numeric values.")
+  } else if(lower >= upper) {
+  stop("Lower has to be a smaller value than Upper")
+  }
+    while(RandomNumber != Number) {
+      if (Number < RandomNumber) {
+        print("Too Low")
+        NumGuesses <- NumGuesses +1
+        Guesses <- c(Guesses, Number)
+      Number <- readline(prompt = "Try Again: ")
+    } else if(Number > RandomNumber ) {
+       print("Too High")
+       NumGuesses <- NumGuesses +1
+       Guesses <- c(Guesses, Number)
+      Number <- readline(prompt = "Try Again: ")
+    } 
+    }
+  print("You Got it!!!")
+  Guesses <- c(Guesses, Number)
+  total_list <-list(RandomNumber = RandomNumber,
+                  NumGuesses = NumGuesses,
+                  Guesses = Guesses)
+  total_list
+}
+
+```
+
+
+
+#Testing GuessTheNumber
+```{r}
+GuessTheNumber(lower = 1, upper = 10, seed = 1)
+```
+
